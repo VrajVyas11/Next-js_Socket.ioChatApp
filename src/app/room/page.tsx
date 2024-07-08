@@ -37,10 +37,19 @@ const RoomPage = () => {
                 setMessages((prevMessages) => [...prevMessages, msg]);
             }
         );
+        socketRef.current.on("participants", (updatedRooms: Record<string, number>[]) => {
+            // Initialize updatedParticipants as an empty object
+            let updatedParticipants: Record<string, number> = {};
+
+            updatedRooms.forEach((roomData) => {
+                updatedParticipants[roomData.room] = roomData.participants;
+            });
+            console.log("this is the updatedParticipants ", updatedParticipants)
+            setParticipants(updatedParticipants);
+        });
 
         // Handle room updates (including participants count)
         socketRef.current.on("updateRooms", (updatedRooms: Record<string, number>) => {
-            setParticipants(updatedRooms);
         });
 
         // Cleanup on unmount
@@ -77,22 +86,48 @@ const RoomPage = () => {
             }}
             className="min-h-screen bg-gray-100 flex items-center justify-center"
         >
-            <div className="bg-black bg-opacity-55 p-8 py-3 rounded-2xl shadow-md w-full max-w-md">
-                
-                <h1 className="text-2xl  flex justify-center items-center p-2 rounded-lg font-bold mb-4 ">
-                    <span
-                        className="text-lg font-serif tracking-wider text-center bg-opacity-40 py-2.5 w-full  px-3 font-bold bg-emerald-400 text-white  rounded rounded-r-none">
-                        Chat Room
-                    </span>
-                    <button
-                        onClick={() => setShowToken((prev) => !prev)}
-                        className={`py-3 w-5/12 bg-opacity-55 font-bold  text-black   px-4 rounded rounded-l-none ${showToken?"text-[12px] py-[8px] font-extrabold bg-lime-300 ":"text-base bg-sky-500"}`}>
-                        {showToken ? roomName : "Show"}
-                    </button>
+            <div className="bg-black bg-opacity-55  rounded-lg shadow-md w-full max-w-md">
+
+                <h1 className="relative text-2xl p-2 flex justify-center flex-col items-start rounded-lg font-bold  shadow-md shadow-gray-800 z-10 bg-teal-500 bg-opacity-80">
+                    <div className="flex justify-center items-center w-full">
+                        <button
+                            onClick={leaveRoom}
+                            className="bg-red-500 bg-opacity-75 text-sm py-2 text-white w-3/5 rounded-lg hover:bg-red-700"
+                        >
+                            Leave
+                        </button>
+                        <span
+                            className="text-lg font-serif tracking-wider text-end bg-opacity-40 py-2.5 w-full font-bold text-white rounded-l-lg"
+                        >
+                            Chat Room
+                        </span>
+                        <div className="w-full flex justify-end items-center">
+                            <div className="bg-white text-sm text-center bg-opacity-60 p-2 px-1 rounded-full w-fit drop-shadow-lg shadow-sm shadow-black">
+                                <span className="font-normal px-4 py-2 bg-opacity-90 bg-green-600 rounded-full text-sm">
+                                   Avtive : <span className="font-bold">{participants && participants[roomName] !== undefined ? participants[roomName] : 0}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </h1>
+                <div className=" w-full flex justify-center items-center">
+                    <div className="absolute flex justify-center items-center z-0">
+                        <button
+                            onClick={() => setShowToken((prev) => !prev)}
+                            style={{width:"320px"}}
+                            className={`drop-shadow-lg sm:w-full shadow-sm transform translate-y-3 shadow-black bg-opacity-60 px-5 pt-2  font-bold text-black rounded-xl rounded-t-none transition-colors duration-300 ${showToken ? "text-[12px] pt-1 font-extrabold bg-lime-300" : "text-sm pt-1 bg-sky-500 hover:bg-sky-600"
+                                }`}
+                        >
+                            {showToken ? roomName : "Room Code"}
+                        </button>
+                    </div>
+                </div>
+
+
+
 
                 <div
-                    className="mb-4 bg-gray-500 bg-opacity-25 rounded h-96 overflow-y-auto"
+                    className=" mx-6 mt-10 mb-4  bg-gray-500 bg-opacity-25 rounded h-96 overflow-y-auto"
                     style={{
                         scrollbarWidth: "thin",
                         scrollbarColor: "rgba(0, 0, 0, 0.6) rgba(0, 0, 0, 0.1)",
@@ -156,7 +191,7 @@ const RoomPage = () => {
                         }
                     })}
                 </div>
-                <div className="flex items-center">
+                <div className="flex p-4 items-center">
                     <input
                         type="text"
                         value={message}
@@ -171,15 +206,7 @@ const RoomPage = () => {
                         Send
                     </button>
                 </div>
-                {/* Leave Room Button */}
-                <div className="flex justify-center items-center pt-4 pb-2">
-                    <button
-                        onClick={leaveRoom}
-                        className="bg-red-600 w-fit bg-opacity-80 text-white px-4 py-2 pt-2.5 rounded-lg hover:bg-red-700"
-                    >
-                        Leave Room
-                    </button>
-                </div>
+
             </div>
         </div>
     );

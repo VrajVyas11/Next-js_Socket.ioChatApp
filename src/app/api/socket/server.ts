@@ -20,6 +20,10 @@ app.prepare().then(() => {
     io.emit('updateRooms', Object.keys(rooms));
   };
 
+const participantscount=()=>{
+  io.emit('participants', Object.keys(rooms).map(room => ({ room, participants: rooms[room] })));
+}
+
   io.on('connection', (socket) => {
     console.log('New client connected', socket.id);
     socket.on('joinRoom', ({ room, name }) => {
@@ -36,6 +40,7 @@ app.prepare().then(() => {
       socket.to(room).emit('message', { name: 'SystemJoin', message: `${name.toUpperCase()} joined`, room });
       console.log(`${name.toUpperCase()} has joined room ${room}`);
       updateRoomList();
+      participantscount();
     });
 
     socket.on('message', (msg) => {
@@ -50,6 +55,7 @@ app.prepare().then(() => {
           delete rooms[room];
         }
         updateRoomList();
+        participantscount();
       }
       socket.to(room).emit('message', { name: 'SystemLeft', message: `${name.toUpperCase()} left`, room });
       console.log(`${name.toUpperCase()} has left room ${room}`);
