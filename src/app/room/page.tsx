@@ -102,9 +102,9 @@ const RoomPage = () => {
                             Chat Room
                         </span>
                         <div className="w-full flex justify-end items-center">
-                            <div className="bg-white text-sm text-center bg-opacity-60 p-2 px-1 rounded-full w-fit drop-shadow-lg shadow-sm shadow-black">
+                            <div className="bg-white text-sm text-center bg-opacity-60 p-2.5 px-1 rounded-full w-fit drop-shadow-lg shadow-sm shadow-black">
                                 <span className="font-normal px-4 py-2 bg-opacity-90 bg-green-600 rounded-full text-sm">
-                                   Avtive : <span className="font-bold">{participants && participants[roomName] !== undefined ? participants[roomName] : 0}</span>
+                                   Active : <span className="font-bold">{participants && participants[roomName] !== undefined ? participants[roomName] : 0}</span>
                                 </span>
                             </div>
                         </div>
