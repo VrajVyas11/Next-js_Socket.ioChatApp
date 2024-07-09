@@ -1,20 +1,13 @@
 {
   "version": 2,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/api/rooms",
-      "destination": "/api/socket/server.ts"
-    },
-    {
-      "source": "/api/socket",
-      "destination": "/api/socket/server.ts"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/"
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "build" }
     }
   ],
-  "env": {
-    "PORT": "3000"
-  }
+  "routes": [
+    { "src": "/(.*)", "dest": "/" }
+  ]
 }
