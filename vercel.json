@@ -6,21 +6,19 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
-    {
-      "src": "/api/rooms",
-      "dest": "/api/rooms"
-    },
-    {
-      "src": "/api/socket",
-      "dest": "/api/socket"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/"
-    }
-  ],
   "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    },
+    {
+      "source": "/api/rooms",
+      "destination": "/api/rooms"
+    },
+    {
+      "source": "/api/socket",
+      "destination": "/api/socket"
+    },
     {
       "source": "/(.*)",
       "destination": "/"
