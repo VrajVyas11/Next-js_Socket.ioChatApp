@@ -24,7 +24,7 @@ const RoomComponent=()=>{
             setUserName(name);
 
             // Initialize socket connection
-            socketRef.current = io(process.env.DOMAIN!, {
+            socketRef.current = io({
                 path: "/api/socket",
             });
 

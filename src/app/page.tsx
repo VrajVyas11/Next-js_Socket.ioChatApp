@@ -17,7 +17,6 @@ export default function Home() {
     fetch('/api/rooms')
       .then((response) => response.json())
       .then((data) => setExistingRooms(data));
-
     socket = io({
       path: '/api/socket',
     });
