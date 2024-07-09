@@ -2,6 +2,10 @@
   "version": 2,
   "builds": [
     {
+      "src": "src/app/api/socket/server.ts",
+      "use": "@vercel/node"
+    },
+    {
       "src": "next.config.js",
       "use": "@vercel/next"
     }
@@ -9,11 +13,11 @@
   "rewrites": [
     {
       "source": "/api/rooms",
-      "destination": "/api/rooms"
+      "destination": "/api/socket/server.ts"
     },
     {
       "source": "/api/socket",
-      "destination": "/api/socket"
+      "destination": "/api/socket/server.ts"
     },
     {
       "source": "/(.*)",
