@@ -15,8 +15,14 @@
         "dest": "/"
       }
     ],
+    "rewrites": [
+      {
+        "source": "/(.*)",
+        "destination": "/"
+      }
+    ],
     "env": {
-      "PORT": "3000"
+      "PORT": 3000
     }
   }
   
