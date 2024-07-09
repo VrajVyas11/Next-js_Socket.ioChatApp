@@ -2,14 +2,14 @@
   "rewrites": [
     {
       "source": "/api/rooms",
-      "destination": "/api/rooms"
+      "destination": "/api/rooms/server.ts"
     },
     {
       "source": "/api/socket",
-      "destination": "/api/socket"
+      "destination": "/api/socket/server.ts"
     },
     {
-      "source": "/",
+      "source": "/(.*)",
       "destination": "/"
     }
   ]
