@@ -2,7 +2,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import io, { Socket } from "socket.io-client";
-import Link from "next/link";
 
 const RoomPage = () => {
     const [message, setMessage] = useState("");
@@ -18,51 +17,53 @@ const RoomPage = () => {
     const router = useRouter();
 
     useEffect(() => {
-        const room = searchParams.get("room") || "default-room";
-        const name = searchParams.get("name") || "Guest";
-        setRoomName(room);
-        setUserName(name);
+        if (typeof window !== 'undefined') {
+            const room = searchParams.get("room") || "default-room";
+            const name = searchParams.get("name") || "Guest";
+            setRoomName(room);
+            setUserName(name);
 
-        // Initialize socket connection
-        socketRef.current = io(process.env.DOMAIN!, {
-            path: "/api/socket",
-        });
-
-        socketRef.current.emit("joinRoom", { room, name });
-
-        // Handle incoming messages
-        socketRef.current.on(
-            "message",
-            (msg: { name: string; message: string; room: string }) => {
-                setMessages((prevMessages) => [...prevMessages, msg]);
-            }
-        );
-        socketRef.current.on("participants", (updatedRooms: Record<string, number>[]) => {
-            // Initialize updatedParticipants as an empty object
-            let updatedParticipants: Record<string, number> = {};
-
-            updatedRooms.forEach((roomData) => {
-                updatedParticipants[roomData.room] = roomData.participants;
+            // Initialize socket connection
+            socketRef.current = io(process.env.DOMAIN!, {
+                path: "/api/socket",
             });
-            console.log("this is the updatedParticipants ", updatedParticipants)
-            setParticipants(updatedParticipants);
-        });
 
-        // Handle room updates (including participants count)
-        socketRef.current.on("updateRooms", (updatedRooms: Record<string, number>) => {
-        });
+            socketRef.current.emit("joinRoom", { room, name });
 
-        // Cleanup on unmount
-        return () => {
-            if (socketRef.current) {
-                socketRef.current.disconnect();
-            }
-        };
+            // Handle incoming messages
+            socketRef.current.on(
+                "message",
+                (msg: { name: string; message: string; room: string }) => {
+                    setMessages((prevMessages) => [...prevMessages, msg]);
+                }
+            );
+            socketRef.current.on("participants", (updatedRooms: Record<string, number>[]) => {
+                // Initialize updatedParticipants as an empty object
+                let updatedParticipants: Record<string, number> = {};
+
+                updatedRooms.forEach((roomData) => {
+                    updatedParticipants[roomData.room] = roomData.participants;
+                });
+                console.log("this is the updatedParticipants ", updatedParticipants)
+                setParticipants(updatedParticipants);
+            });
+
+            // Handle room updates (including participants count)
+            socketRef.current.on("updateRooms", (updatedRooms: Record<string, number>) => {
+            });
+
+            // Cleanup on unmount
+            return () => {
+                if (socketRef.current) {
+                    socketRef.current.disconnect();
+                }
+            };
+        }
     }, [searchParams]);
 
     const leaveRoom = () => {
         socketRef?.current?.emit("leaveRoom", { room: roomName, name: userName });
-        router.push("/"); // Redirect to home or another page after leaving room
+        router.push("/"); 
     };
 
     const sendMessage = () => {
@@ -133,24 +134,24 @@ const RoomPage = () => {
                         scrollbarColor: "rgba(0, 0, 0, 0.6) rgba(0, 0, 0, 0.1)",
                     }}
                 >
-                    <style jsx>{`
+                    {/* <style jsx>{`
             div::-webkit-scrollbar {
               width: 12px;
             }
             div::-webkit-scrollbar-thumb {
-              background-color: rgba(0, 0, 0, 0.6); /* 60% opacity */
+              background-color: rgba(0, 0, 0, 0.6); 
               border-radius: 10px;
             }
             div::-webkit-scrollbar-track {
               background-color: rgba(0, 0, 0, 0.1);
               border-radius: 10px;
             }
-          `}</style>
+          `}</style> */}
                     {messages.map((msg, index) => {
                         if (userName === msg.name && roomName === msg.room) {
                             return (
                                 <div key={index} className="p-2  flex justify-end items-center w-full">
-                                    <div className="bg-emerald-500 px-4 py-4 flex flex-col justify-center items-center rounded-xl rounded-br-none min-w-fit max-w-14">
+                                    <div className="bg-emerald-500 text-sm px-4 py-4 flex flex-col justify-center items-center rounded-xl rounded-br-none min-w-fit max-w-14">
                                         <span>{msg.message}</span>
                                     </div>
                                 </div>
@@ -181,10 +182,10 @@ const RoomPage = () => {
                             return (
                                 <div key={index} className="p-2  flex justify-start items-center w-full">
                                     <div className="bg-gray-500 flex flex-col justify-start items-start rounded-xl rounded-tl-none min-w-fit max-w-14">
-                                        <span className="w-full pl-6 p-2 rounded-xl bg-red-600 rounded-tl-none border-b-4 font-extrabold">
+                                        <span className="w-full text-sm pl-6 p-2 rounded-xl bg-red-600 rounded-tl-none border-b-4 font-extrabold">
                                             {msg.name.toUpperCase()}
                                         </span>
-                                        <span className="p-2 px-11 m-2 mt-0 border-gray-500">{msg.message}</span>
+                                        <span className="p-1 text-sm px-11 m-2 mt-0 border-gray-500">{msg.message}</span>
                                     </div>
                                 </div>
                             );
