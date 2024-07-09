@@ -9,7 +9,7 @@
       "destination": "/api/socket"
     },
     {
-      "source": "/(.*)",
+      "source": "/",
       "destination": "/"
     }
   ]
