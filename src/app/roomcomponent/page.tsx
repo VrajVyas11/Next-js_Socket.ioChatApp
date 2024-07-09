@@ -4,17 +4,17 @@ import { useRouter, useSearchParams } from "next/navigation";
 import io, { Socket } from "socket.io-client";
 
 const RoomComponent = () => {
+    const searchParams = useSearchParams();
+    const router = useRouter();
     const [message, setMessage] = useState("");
-    const [messages, setMessages] = useState<
-        { name: string; message: string; room: string }[]
-    >([]);
+    const [messages, setMessages] = useState<{ name: string; message: string; room: string }[]>([]);
     const [showToken, setShowToken] = useState(false);
     const [userName, setUserName] = useState<string>("Guest");
     const [roomName, setRoomName] = useState<string>("default-room");
     const [participants, setParticipants] = useState<Record<string, number>>({});
     const socketRef = useRef<Socket | null>(null);
-    const searchParams = useSearchParams();
-    const router = useRouter();
+
+
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
