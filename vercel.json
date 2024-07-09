@@ -1,16 +1,26 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@vercel/next"
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/rooms",
-      "destination": "/api/rooms/server.ts"
+      "destination": "/api/rooms"
     },
     {
       "source": "/api/socket",
-      "destination": "/api/socket/server.ts"
+      "destination": "/api/socket"
     },
     {
       "source": "/(.*)",
       "destination": "/"
     }
-  ]
+  ],
+  "env": {
+    "PORT": "3000"
+  }
 }
