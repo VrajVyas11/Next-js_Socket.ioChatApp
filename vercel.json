@@ -8,8 +8,8 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/"
+      "source": "/socket.io/(.*)",
+      "destination": "/api/socket.io/:1"
     },
     {
       "source": "/api/rooms",
