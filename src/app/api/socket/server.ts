@@ -90,8 +90,8 @@ const participantscount=()=>{
   });
 
   const DOMAIN=process.env.DOMAIN || "http://localhost:3000"
-  const PORT = process.env.PORT || 3000;
-  httpServer.listen(PORT, () => {
+  httpServer.listen(() => {
     console.log(`Server running on ${DOMAIN}`);
   });
+  
 });
