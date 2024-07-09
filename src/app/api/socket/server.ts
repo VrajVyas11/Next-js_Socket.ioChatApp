@@ -6,7 +6,7 @@ import next from 'next';
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
-const rooms: Record<string, number> = {}; 
+const rooms: Record<string, number> = {};
 
 app.prepare().then(() => {
   const server = express();

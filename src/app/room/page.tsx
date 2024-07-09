@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import io, { Socket } from "socket.io-client";
 
-const RoomComponent=()=>{
+const RoomComponent = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const [message, setMessage] = useState("");
@@ -104,7 +104,7 @@ const RoomComponent=()=>{
                         <div className="w-full flex justify-end items-center">
                             <div className="bg-white text-sm text-center bg-opacity-60 p-2.5 px-1 rounded-full w-fit drop-shadow-lg shadow-sm shadow-black">
                                 <span className="font-normal px-4 py-2 bg-opacity-90 bg-green-600 rounded-full text-sm">
-                                   Active : <span className="font-bold">{participants && participants[roomName] !== undefined ? participants[roomName] : 0}</span>
+                                    Active : <span className="font-bold">{participants && participants[roomName] !== undefined ? participants[roomName] : 0}</span>
                                 </span>
                             </div>
                         </div>
@@ -114,7 +114,7 @@ const RoomComponent=()=>{
                     <div className="absolute flex justify-center items-center z-0">
                         <button
                             onClick={() => setShowToken((prev) => !prev)}
-                            style={{width:"320px"}}
+                            style={{ width: "320px" }}
                             className={`drop-shadow-lg sm:w-full shadow-sm transform translate-y-3 shadow-black bg-opacity-60 px-5 pt-2  font-bold text-black rounded-xl rounded-t-none transition-colors duration-300 ${showToken ? "text-[12px] pt-1 font-extrabold bg-lime-300" : "text-sm pt-1 bg-sky-500 hover:bg-sky-600"
                                 }`}
                         >
@@ -214,21 +214,21 @@ const RoomComponent=()=>{
 const RoomPage = () => {
     return (
         <Suspense
-          fallback={
-            <div
-              style={{
-                background: `url("/bg.svg")`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-              className="min-h-screen text-black text-2xl font-bold flex items-center justify-center"
-            >
-              Loading...
-            </div>
-          }
+            fallback={
+                <div
+                    style={{
+                        background: `url("/bg.svg")`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                    }}
+                    className="min-h-screen text-black text-2xl font-bold flex items-center justify-center"
+                >
+                    Loading...
+                </div>
+            }
         >
-            <RoomComponent/>
-    </Suspense>
+            <RoomComponent />
+        </Suspense>
     )
 };
 

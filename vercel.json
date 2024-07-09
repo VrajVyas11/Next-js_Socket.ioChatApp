@@ -1,28 +1,32 @@
 {
-    "version": 2,
-    "builds": [{ "src": "next.config.js", "use": "@vercel/node" }],
-    "routes": [
-      {
-        "src": "/api/rooms",
-        "dest": "/api/rooms"
-      },
-      {
-        "src": "/api/socket",
-        "dest": "/api/socket"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/"
-      }
-    ],
-    "rewrites": [
-      {
-        "source": "/(.*)",
-        "destination": "/"
-      }
-    ],
-    "env": {
-      "PORT": "3000"
+  "version": 2,
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@vercel/node"
     }
+  ],
+  "routes": [
+    {
+      "src": "/api/rooms",
+      "dest": "/api/rooms"
+    },
+    {
+      "src": "/api/socket",
+      "dest": "/api/socket"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ],
+  "env": {
+    "PORT": "3000"
   }
-  
+}

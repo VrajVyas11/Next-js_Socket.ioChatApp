@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 import io from 'socket.io-client';
 
-let socket:any;
+let socket: any;
 
 export default function Home() {
   const [roomName, setRoomName] = useState('');
@@ -21,7 +21,7 @@ export default function Home() {
       path: '/api/socket',
     });
 
-    socket.on('updateRooms', (rooms:any) => {
+    socket.on('updateRooms', (rooms: any) => {
       setExistingRooms(rooms);
     });
 
