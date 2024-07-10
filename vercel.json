@@ -1,19 +1,7 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "next.config.js",
-      "use": "@vercel/next"
-    },
-    {
-      "src": "src/app/api/socket/server.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["src/**/*"]
-      }
-    }
-  ],
   "routes": [
+    { "handle": "filesystem" },
     {
       "src": "/api/socket",
       "dest": "/src/app/api/socket/server.ts"
@@ -21,6 +9,29 @@
     {
       "src": "/(.*)",
       "dest": "/"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/next.config.js",
+      "destination": "/_next/next.config.js"
+    },
+    {
+      "source": "/src/app/api/socket/server.ts",
+      "destination": "/api/socket"
+    }
+  ],
+  "builds": [
+    {
+      "src": "/next.config.js",
+      "use": "@vercel/next"
+    },
+    {
+      "src": "/src/app/api/socket/server.ts",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["src/**/*"]
+      }
     }
   ]
 }
