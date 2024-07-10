@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development node --loader ts-node/esm src/app/api/socket/server.ts",
-    "build": "next build",
-    "start": "cross-env NODE_ENV=production node src/app/api/socket/server.ts"
+        "build": "tsc",
+        "start": "cross-env NODE_ENV=production node dist/app/api/socket/server.js" 
   },
   "dependencies": {
     "express": "^4.19.2",
