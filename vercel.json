@@ -2,12 +2,25 @@
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "build" }
+      "src": "src/app/api/socket/server.ts",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["src/**/*"]
+      }
+    },
+    {
+      "src": "next.config.js",
+      "use": "@vercel/next"
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/" }
+    {
+      "src": "/api/socket",
+      "dest": "/src/app/api/socket/server.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
   ]
 }
