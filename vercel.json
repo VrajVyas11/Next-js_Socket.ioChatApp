@@ -1,17 +1,13 @@
 {
   "version": 2,
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/socket",
-      "dest": "src/app/api/socket/server.ts"
+      "source": "/api/socket/(.*)",
+      "destination": "src/app/api/socket/server.ts"
     },
     {
-      "src": "/next.config.js",
-      "dest": "_next/next.config.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/"
+      "source": "/(.*)",
+      "destination": "/$1"
     }
   ],
   "builds": [
