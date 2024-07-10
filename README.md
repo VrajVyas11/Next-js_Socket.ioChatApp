@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Open Chat
+
+Open Chat is a real-time messaging application that enables seamless communication between users. Built with modern web technologies, it offers a smooth and responsive user experience across different devices.
+
+## Live Demo
+
+Check out the live demo [here](https://next-js-socket-iochatapp.onrender.com/).
+
+## Live Images
+
+![Laptop View](./livedemoimages/1.png)
+
+![Laptop View](./livedemoimages/2.png)
+
+![Laptop View](./livedemoimages/3.png)
+
+![Laptop View](./livedemoimages/4.png)
+
+![Laptop View](./livedemoimages/5.png)
+
+![Laptop View](./livedemoimages/6.png)
+
+![Laptop View](./livedemoimages/7.png)
+
+![Laptop View](./livedemoimages/8.png)
+
+![Laptop View](./livedemoimages/9.png)
+
+![Laptop View](./livedemoimages/10.png)
+
+![Laptop View](./livedemoimages/12.png)
+
+![Laptop View](./livedemoimages/13.png)
+
+![Laptop View](./livedemoimages/14.png)
+
+![Laptop View](./livedemoimages/15.png)
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to set up the project on your local machine:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Fork the Repository:**
+   - Click on the "Fork" button at the top right corner of this repository's GitHub page.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Clone the Forked Repository:**
+   ```bash
+git clone https://github.com/VrajVyas11/Next-js_Socket.ioChatApp.git
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Navigate to the Project Directory:**
+     cd Next-js_Socket.ioChatApp
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4.**Install Dependencies:
+       Ensure you have Node.js and npm installed, then run: **
 
-## Learn More
+         npm install
 
-To learn more about Next.js, take a look at the following resources:
+5. **Set Up Environment Variables:
+Create a .env file in the root directory and add the necessary environment variables as specified in .FakeENV.**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+6.**Start the Development Server:**
+   npm start
 
-## Deploy on Vercel
+7.**Open Your Browser:
+Navigate to http://localhost:3000 to see the application running.**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
