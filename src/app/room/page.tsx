@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import io, { Socket } from "socket.io-client";
+import Image from "next/image";
 
 const RoomComponent = () => {
     const searchParams = useSearchParams();
@@ -13,8 +14,31 @@ const RoomComponent = () => {
     const [roomName, setRoomName] = useState<string>("default-room");
     const [participants, setParticipants] = useState<Record<string, number>>({});
     const socketRef = useRef<Socket | null>(null);
+    const [bg_color, setBg_color] = useState<String>("bg-red-500");
+    const tailwindColors = [
+        "bg-red-500",
+        "bg-yellow-500",
+        "bg-green-500",
+        "bg-blue-500",
+        "bg-indigo-500",
+        "bg-purple-500",
+        "bg-pink-500",
+        "bg-teal-500",
+        "bg-blue-300",
+        "bg-green-300",
+        "bg-yellow-300",
+        "bg-red-300",
+        "bg-purple-300",
+    ];
 
+    const getRandomTailwindColor = () => {
+        const randomIndex = Math.floor(Math.random() * tailwindColors.length);
+        return tailwindColors[randomIndex];
+    };
 
+    useEffect(() => {
+        setBg_color(getRandomTailwindColor());
+    }, [])
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -88,46 +112,117 @@ const RoomComponent = () => {
         >
             <div className="bg-black bg-opacity-55  rounded-lg shadow-md w-full max-w-md">
 
-                <h1 className="relative text-2xl p-2 flex justify-center flex-col items-start rounded-lg font-bold  shadow-md shadow-gray-800 z-10 bg-teal-500 bg-opacity-80">
-                    <div className="flex justify-center items-center w-full">
+                <h1 className="relative bg-opacity-70 p-4 py-0 flex gap-4 justify-around items-center rounded-lg rounded-br-none  border-2 border-x-4 border-b-0 border-white border-opacity-70 rounded-bl-none font-bold  bg-sky-400 text-white z-10">
+                    <div className="flex justify-between gap-2 w-full items-center">
                         <button
                             onClick={leaveRoom}
-                            className="bg-red-500 bg-opacity-75 text-sm py-2 text-white w-3/5 rounded-lg hover:bg-red-700"
+                            className="bg-red-500 bg-opacity-95 text-sm mr-3 py-2 px-3 rounded-lg hover:bg-red-700 transition duration-300"
                         >
                             Leave
                         </button>
-                        <span
-                            className="text-lg font-serif tracking-wider text-end bg-opacity-40 py-2.5 w-full font-bold text-white rounded-l-lg"
-                        >
-                            Chat Room
-                        </span>
+                        <div>
+                            {/* <div className=" absolute flex flex-row bg-green-500 border-black border-x-2  rounded-full rounded-tr-none rounded-bl-none px-4   py-2 items-center">
+                                <div className="w-12 h-12 p-1 bg-slate-300 shadow-sm shadow-black rounded-full overflow-hidden mr-2">
+                                    <Image src="/group.svg" alt="User" width={40} height={40} className="w-full h-full" />
+                                </div>
+                                <span className="text-lg text-black font-bold font-serif tracking-wide">Chat Room</span>
+                            </div> */}
+
+                            <div className="flex flex-row bg-white bg-opacity-65 border-gray-300 border-2 border-y-0   rounded-full rounded-br-none rounded-tl-none px-6 py-2 items-center">
+
+                                <div className="w-12 h-12 p-1 bg-slate-300 shadow-sm shadow-black rounded-full overflow-hidden mr-2">
+                                    <Image src="/group.svg" alt="User" width={40} height={40} className="w-full h-full" />
+                                </div>
+                                <span className="text-lg text-black font-bold font-serif tracking-wide">Chat Room</span>
+                            </div>
+                        </div>
+                        <details className="bg-transparent text-black hover:bg-opacity-80 p-2 rounded-full">
+                            <summary className="flex items-center cursor-pointer">
+                                <button
+                                    onClick={() => setShowToken(prev => !prev)}
+                                    className="bg-green-400  transition-transform transform hover:scale-105 flex justify-center items-center rounded-lg px-5 py-1.5"
+                                >
+                                    <Image src="/code.svg" height={25} width={25} alt="eye" />
+                                </button>
+                            </summary>
+                        </details>
+
+                        {showToken && (
+                            <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 p-4">
+                                <div className="bg-green-500 rounded-xl p-1 flex flex-col shadow-xl w-full max-w-md  relative">
+                                    <div className=" bg-zinc-200 bg-opacity-65 rounded-lg pb-2">
+                                        <div className="flex flex-row w-full justify-between items-center mb-1">
+                                            <div className="w-full flex justify-center">
+                                                <h2 className="text-xl flex w-fit bg-white bg-opacity-70 font-serif  justify-between items-center  rounded-full text-center font-bold text-gray-800 mb-2">
+                                                    <div
+                                                        className="bg-black bg-opacity-75 border-4 border-white border-opacity-100  flex justify-center items-center rounded-full p-1"
+                                                    >
+                                                        <Image src="/code1.svg" height={40} width={40} alt="eye" className="" />
+                                                    </div>
+                                                    <span className="px-2 mx-10">
+                                                        Room Code
+                                                    </span>
+                                                    <button
+                                                        onClick={() => setShowToken(prev => !prev)}
+className="bg-red-500 border-4 border-white border-opacity-100 hover:transition-all text-black hover:scale-105 hover:ease-out flex justify-center items-center rounded-full p-2 px-4"
+                                                    >
+                                                        x
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                        </div>
+
+
+                                        <div className=" flex mx-4 flex-row">
+                                            <p className="text-2xl flex  items-center justify-center border-blue-600 border-2 border-r-0 bg-white rounded-lg rounded-r-none p-4 py-2  font-semibold text-black flex-1 text-center">
+                                                {roomName}</p>
+                                            <button
+                                                onClick={() => {
+                                                    navigator.clipboard.writeText(roomName);
+                                                    alert("Room code copied to clipboard!");
+                                                }}
+                                                className=" transition-all bg-opacity-70 transform scale-100 hover:scale-105 rounded-r-lg p-4 border-blue-600 border-2 bg-black duration-200 text-white"
+                                                aria-label="Copy room code"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    className="h-5 w-5"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth={2}
+                                                        d="M16 6h2a2 2 0 012 2v10a2 2 0 01-2 2h-2m-4 0H8a2 2 0 01-2-2V8a2 2 0 012-2h2m4 0V4a2 2 0 00-2-2H8a2 2 0 00-2 2v2"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </h1>
+
+
+                <div className="w-full flex justify-center items-center">
+                    <div className="relative flex justify-center w-full items-center z-0">
                         <div className="w-full flex justify-end items-center">
-                            <div className="bg-white text-sm text-center bg-opacity-60 p-2.5 px-1 rounded-full w-fit drop-shadow-lg shadow-sm shadow-black">
-                                <span className="font-normal px-4 py-2 bg-opacity-90 bg-green-600 rounded-full text-sm">
-                                    Active : <span className="font-bold">{participants && participants[roomName] !== undefined ? participants[roomName] : 0}</span>
-                                </span>
+                            <div className="bg-white bg-opacity-70 text-sm text-center p-0.5 pt-0 px-1 rounded-full rounded-t-none w-full drop-shadow-lg shadow-sm shadow-black">
+                                <div className=" px-2  w-full bg-green-500 bg-opacity-70 rounded-full rounded-t-none font-bold text-black text-sm">
+                                    Active : <span className="font-extrabold">{participants && participants[roomName] !== undefined ? participants[roomName] : 0}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </h1>
-                <div className=" w-full flex justify-center items-center">
-                    <div className="absolute flex justify-center items-center z-0">
-                        <button
-                            onClick={() => setShowToken((prev) => !prev)}
-                            style={{ width: "320px" }}
-                            className={`drop-shadow-lg sm:w-full shadow-sm transform translate-y-3 shadow-black bg-opacity-60 px-5 pt-2  font-bold text-black rounded-xl rounded-t-none transition-colors duration-300 ${showToken ? "text-[12px] pt-1 font-extrabold bg-lime-300" : "text-sm pt-1 bg-sky-500 hover:bg-sky-600"
-                                }`}
-                        >
-                            {showToken ? roomName : "Room Code"}
-                        </button>
-                    </div>
                 </div>
 
-
-
-
                 <div
-                    className=" mx-6 mt-10 mb-4  bg-gray-500 bg-opacity-25 rounded h-96 overflow-y-auto"
+                    className=" mx-6 mt-5 mb-2  bg-gray-500 bg-opacity-25 rounded h-96 overflow-y-auto"
                     style={{
                         scrollbarWidth: "thin",
                         scrollbarColor: "rgba(0, 0, 0, 0.6) rgba(0, 0, 0, 0.1)",
@@ -149,8 +244,8 @@ const RoomComponent = () => {
                     {messages.map((msg, index) => {
                         if (userName === msg.name && roomName === msg.room) {
                             return (
-                                <div key={index} className="p-2  flex justify-end items-center w-full">
-                                    <div className="bg-emerald-500 text-sm px-4 py-4 flex flex-col justify-center items-center rounded-xl rounded-br-none min-w-fit max-w-14">
+                                <div key={index} className="p-2  flex justify-end gap-2 items-center w-full">
+                                    <div className="bg-green-500 text-sm min-w-20 p-4 flex flex-col justify-center items-center rounded-xl rounded-tr-none max-w-14">
                                         <span>{msg.message}</span>
                                     </div>
                                 </div>
@@ -161,7 +256,7 @@ const RoomComponent = () => {
                                     key={index}
                                     className="p-2 my-2  flex justify-center items-center w-full"
                                 >
-                                    <div className="bg-emerald-500 p-2 text-xs flex flex-col justify-center items-center rounded-lg min-w-fit max-w-14">
+                                    <div className="bg-green-500 p-2 text-xs flex flex-col justify-center items-center rounded-lg min-w-fit max-w-14">
                                         <span>{msg.message}</span>
                                     </div>
                                 </div>
@@ -179,9 +274,11 @@ const RoomComponent = () => {
                             );
                         } else if (roomName === msg.room) {
                             return (
-                                <div key={index} className="p-2  flex justify-start items-center w-full">
+                                <div key={index} className="p-2 gap-2 flex justify-start items-start w-full">
+                                    <div className={`w-8 h-8 rounded-full ${bg_color} flex items-center justify-center text-white font-bold`}>{msg.name.charAt(0)}</div>
                                     <div className="bg-gray-500 flex flex-col justify-start items-start rounded-xl rounded-tl-none min-w-fit max-w-14">
-                                        <span className="w-full text-sm pl-6 p-2 rounded-xl bg-red-600 rounded-tl-none border-b-4 font-extrabold">
+
+                                        <span className={`w-full text-sm pl-6 p-2 rounded-xl ${bg_color} rounded-tl-none border-b-4 font-extrabold`}>
                                             {msg.name.toUpperCase()}
                                         </span>
                                         <span className="p-1 text-sm px-11 m-2 mt-0 border-gray-500">{msg.message}</span>
@@ -197,11 +294,11 @@ const RoomComponent = () => {
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Type your message..."
-                        className="bg-gray-200 text-black p-2 w-full rounded-md outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                        className="bg-gray-200 text-black p-2 w-full rounded-md outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent"
                     />
                     <button
                         onClick={sendMessage}
-                        className="ml-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md"
+                        className="ml-2 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md"
                     >
                         Send
                     </button>
