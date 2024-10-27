@@ -241,52 +241,55 @@ className="bg-red-500 border-4 border-white border-opacity-100 hover:transition-
               border-radius: 10px;
             }
           `}</style> */}
-                    {messages.map((msg, index) => {
-                        if (userName === msg.name && roomName === msg.room) {
-                            return (
-                                <div key={index} className="p-2  flex justify-end gap-2 items-center w-full">
-                                    <div className="bg-green-500 text-sm min-w-20 p-4 flex flex-col justify-center items-center rounded-xl rounded-tr-none max-w-14">
-                                        <span>{msg.message}</span>
-                                    </div>
-                                </div>
-                            );
-                        } else if (msg.name === "SystemJoin" && roomName === msg.room) {
-                            return (
-                                <div
-                                    key={index}
-                                    className="p-2 my-2  flex justify-center items-center w-full"
-                                >
-                                    <div className="bg-green-500 p-2 text-xs flex flex-col justify-center items-center rounded-lg min-w-fit max-w-14">
-                                        <span>{msg.message}</span>
-                                    </div>
-                                </div>
-                            );
-                        } else if (msg.name === "SystemLeft" && roomName === msg.room) {
-                            return (
-                                <div
-                                    key={index}
-                                    className="p-2 my-2  flex justify-center items-center w-full"
-                                >
-                                    <div className="bg-red-500 p-2 text-xs flex flex-col justify-center items-center rounded-lg min-w-fit max-w-14">
-                                        <span>{msg.message}</span>
-                                    </div>
-                                </div>
-                            );
-                        } else if (roomName === msg.room) {
-                            return (
-                                <div key={index} className="p-2 gap-2 flex justify-start items-start w-full">
-                                    <div className={`w-8 h-8 rounded-full ${bg_color} flex items-center justify-center text-white font-bold`}>{msg.name.charAt(0)}</div>
-                                    <div className="bg-gray-500 flex flex-col justify-start items-start rounded-xl rounded-tl-none min-w-fit max-w-14">
+                {messages.map((msg, index) => {
+    if (userName === msg.name && roomName === msg.room) {
+        return (
+            <div key={index} className="p-2 flex justify-end gap-2 items-center h-fit w-full">
+                <div className="bg-green-500 text-sm min-w-20 p-4 flex flex-col justify-center items-center rounded-xl rounded-tr-none break-words max-w-64">
+                    <span className="break-words overflow-wrap break-word word-break break-all">{msg.message}</span>
+                </div>
+            </div>
+        );
+    } else if (msg.name === "SystemJoin" && roomName === msg.room) {
+        return (
+            <div key={index} className="p-2 my-2 flex justify-center items-center w-full">
+                <div className="bg-green-500 p-2 text-xs flex flex-col justify-center items-center rounded-lg min-w-fit max-w-14">
+                    <span className="break-words overflow-wrap break-word word-break break-all">{msg.message}</span>
+                </div>
+            </div>
+        );
+    } else if (msg.name === "SystemLeft" && roomName === msg.room) {
+        return (
+            <div key={index} className="p-2 my-2 flex justify-center items-center w-full">
+                <div className="bg-red-500 p-2 text-xs flex flex-col justify-center items-center rounded-lg min-w-fit max-w-14">
+                    <span className="break-words overflow-wrap break-word word-break break-all">{msg.message}</span>
+                </div>
+            </div>
+        );
+    } else if (roomName === msg.room) {
+        return (
+            <div
+                key={index}
+                className="p-2 gap-2 flex flex-row justify-start min-w-[60px] max-w-[85%] items-start"
+            >
+                <div className={`w-8 h-8 rounded-full ${bg_color} flex items-center justify-center text-white font-bold`}>
+                    {msg.name.charAt(0)}
+                </div>
+                <div className="bg-gray-500 h-fit flex flex-col justify-start items-start rounded-xl rounded-tl-none min-w-[130px] max-w-full sm:max-w-[85%]">
+                    <span
+                        className={`w-full text-sm px-4 p-2 rounded-xl ${bg_color} rounded-tl-none border-b-4 font-extrabold break-words overflow-wrap break-word word-break break-all`}
+                    >
+                        {msg.name.toUpperCase()}
+                    </span>
+                    <span className="p-1 text-sm px-3 md:px-4 lg:px-5 my-2 mt-0 text-gray-100 break-words overflow-wrap break-word word-break break-all">
+                        {msg.message}
+                    </span>
+                </div>
+            </div>
+        );
+    }
+})}
 
-                                        <span className={`w-full text-sm pl-6 p-2 rounded-xl ${bg_color} rounded-tl-none border-b-4 font-extrabold`}>
-                                            {msg.name.toUpperCase()}
-                                        </span>
-                                        <span className="p-1 text-sm px-11 m-2 mt-0 border-gray-500">{msg.message}</span>
-                                    </div>
-                                </div>
-                            );
-                        }
-                    })}
                 </div>
                 <div className="flex p-4 items-center">
                     <input
