@@ -6,7 +6,7 @@ Open Chat is a real-time messaging application that enables seamless communicati
 
 Check out the live demo [here](https://next-js-socket-iochatapp.onrender.com/).
 
-## Live Images
+## Live Images For Laptop
 
 ![Laptop View](./livedemoimages/1.png)
 
@@ -18,23 +18,19 @@ Check out the live demo [here](https://next-js-socket-iochatapp.onrender.com/).
 
 ![Laptop View](./livedemoimages/5.png)
 
-![Laptop View](./livedemoimages/6.png)
 
-![Laptop View](./livedemoimages/7.png)
 
-![Laptop View](./livedemoimages/8.png)
+## Live Images For Mobile
+![Mobile View](./livedemoimages/mobile1.png)
 
-![Laptop View](./livedemoimages/9.png)
+![Mobile View](./livedemoimages/mobile2.png)
 
-![Laptop View](./livedemoimages/10.png)
 
-![Laptop View](./livedemoimages/12.png)
+## Live Images For Tablet
+![Tablet View](./livedemoimages/tablet1.png)
+![Tablet View](./livedemoimages/tablet2.png)
 
-![Laptop View](./livedemoimages/13.png)
 
-![Laptop View](./livedemoimages/14.png)
-
-![Laptop View](./livedemoimages/15.png)
 
 ## Getting Started
 
