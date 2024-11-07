@@ -41,7 +41,7 @@ Follow these steps to set up the project on your local machine:
 
 2. **Clone the Forked Repository:**
    ```bash
-git clone https://github.com/VrajVyas11/Next-js_Socket.ioChatApp.git
+         git clone https://github.com/VrajVyas11/Next-js_Socket.ioChatApp.git
 
 3. **Navigate to the Project Directory:**
      cd Next-js_Socket.ioChatApp
